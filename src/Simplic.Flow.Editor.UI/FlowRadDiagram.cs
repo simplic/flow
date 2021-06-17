@@ -20,7 +20,6 @@ namespace Simplic.Flow.Editor.UI
             SelectionMode = SelectionMode.Single;
 
             Loaded += FlowRadDiagram_Loaded;
-            
         }
 
         #endregion
@@ -52,7 +51,7 @@ namespace Simplic.Flow.Editor.UI
         /// <returns></returns>
         protected override IShape GetShapeContainerForItemOverride(object item)
         {
-            if (item is ActionNodeViewModel actionNodeViewModel)
+            if (item is ActionNodeViewModel)
             {
                 var shape = new ActionNodeShape()
                 {
@@ -63,9 +62,20 @@ namespace Simplic.Flow.Editor.UI
 
                 return shape;
             }
-            else if (item is EventNodeViewModel eventNodeViewModel)
+            else if (item is EventNodeViewModel)
             {
                 var shape = new EventNodeShape
+                {
+                    DataContext = item
+                };
+
+                shape.CreateConnectors();
+
+                return shape;
+            }
+            else if (item is ConditionNodeViewModel)
+            {
+                var shape = new ConditionNodeShape()
                 {
                     DataContext = item
                 };

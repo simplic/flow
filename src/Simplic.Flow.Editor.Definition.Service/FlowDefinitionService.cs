@@ -44,6 +44,15 @@ namespace Simplic.Flow.Editor.Definition.Service
                             Category = nodeAttribute.Category
                         };
                     }
+                    else if (nodeAttribute is ConditionNodeDefinitionAttribute)
+                    {
+                        nodeDefinition = new ConditionNodeDefinition
+                        {
+                            DisplayName = nodeAttribute.DisplayName,
+                            Name = nodeAttribute.Name,
+                            Category = nodeAttribute.Category
+                        };
+                    }
 
                     // if we cant find what type the node definition is, just return the empty list
                     if (nodeDefinition == null)

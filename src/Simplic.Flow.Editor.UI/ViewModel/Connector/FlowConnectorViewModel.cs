@@ -27,6 +27,15 @@ namespace Simplic.Flow.Editor.UI
             set { pinDefinition.PinDirection = value; RaisePropertyChanged(nameof(PinDirection)); }
         }
 
+        public bool IsDynamic
+        {
+            get { return pinDefinition.IsDynamic; }
+            set
+            {
+                PropertySetter(value, v => pinDefinition.IsDynamic = v);
+            }
+        }
+
         public override bool IsConnected
         {
             get { return isConnected; }
@@ -35,7 +44,7 @@ namespace Simplic.Flow.Editor.UI
                 isConnected = value;
                 RaisePropertyChanged(nameof(IsConnected));
                 RaisePropertyChanged(nameof(StrokeColor));
-                RaisePropertyChanged(nameof(FillColor));                
+                RaisePropertyChanged(nameof(FillColor));
             }
         }
 
@@ -87,7 +96,7 @@ namespace Simplic.Flow.Editor.UI
         }
 
         public override bool CanConnectTo(ConnectorViewModel otherConnectorViewModel)
-        {            
+        {
             var otherFlowConnectorViewModel = otherConnectorViewModel as FlowConnectorViewModel;
 
             // if the target is null or has the same parent as me
@@ -102,10 +111,10 @@ namespace Simplic.Flow.Editor.UI
             if (connectionExists && !IsList)
                 return false;
 
-            if (this.PinDirection == PinDirectionDefinition.In)            
-                return otherFlowConnectorViewModel.PinDirection == PinDirectionDefinition.Out;            
+            if (this.PinDirection == PinDirectionDefinition.In)
+                return otherFlowConnectorViewModel.PinDirection == PinDirectionDefinition.Out;
             else
-                return otherFlowConnectorViewModel.PinDirection == PinDirectionDefinition.In;            
+                return otherFlowConnectorViewModel.PinDirection == PinDirectionDefinition.In;
         }
     }
 }

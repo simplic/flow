@@ -10,6 +10,7 @@ namespace Simplic.Flow.Editor.UI
     {
         public Style ActionNodeStyle { get; set; }
         public Style EventNodeStyle { get; set; }
+        public Style ConditionNodeStyle { get; set; }
 
         /// <summary>
         /// Selects a style based on the node type
@@ -22,7 +23,9 @@ namespace Simplic.Flow.Editor.UI
             if (item is ActionNodeViewModel)
                 return ActionNodeStyle;
             else if (item is EventNodeViewModel)
-                return EventNodeStyle;            
+                return EventNodeStyle;
+            else if (item is ConditionNodeViewModel)
+                return ConditionNodeStyle;
             else
                 return base.SelectStyle(item, container);
         }

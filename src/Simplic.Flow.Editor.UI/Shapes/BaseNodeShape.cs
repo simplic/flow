@@ -42,8 +42,6 @@ namespace Simplic.Flow.Editor.UI
         }
         #endregion
 
-        
-
         #region Protected Methods
 
         #region [OnIsSelectedChanged]
@@ -164,6 +162,10 @@ namespace Simplic.Flow.Editor.UI
                 return;
 
             int longestTextLength = 0;
+            
+            FlowConnectors?.Clear();
+            DataConnectors?.Clear();
+            Connectors?.Clear();
 
             // Fill connector list
             foreach (var pin in ViewModel.DataPins)
@@ -174,7 +176,7 @@ namespace Simplic.Flow.Editor.UI
                 {
                     DataContext = pin
                 };
-
+                
                 DataConnectors.Add(dataConnector);
 
                 if (dataConnector.Name.Length > longestTextLength)
@@ -206,7 +208,7 @@ namespace Simplic.Flow.Editor.UI
             if (ViewModel.Width < 50)
                 ViewModel.Width = 50;
 
-            const double heightPerDataPin = 15;
+            const double heightPerDataPin = 19;
             const double heightPerFlowPin = 20;
             const double baseHeight = 35;
 
@@ -215,17 +217,17 @@ namespace Simplic.Flow.Editor.UI
             var flowOutPinCount = FlowConnectors.Count(x => x.ConnectorDirection == ConnectorDirection.Out);
             var dataOutPinCount = DataConnectors.Count(x => x.ConnectorDirection == ConnectorDirection.Out);
 
-            if ((flowInPinCount + dataInPinCount) > (flowOutPinCount + dataOutPinCount))
+            if ((flowInPinCount * heightPerFlowPin + dataInPinCount * heightPerDataPin) > (flowOutPinCount * heightPerFlowPin + dataOutPinCount * heightPerDataPin))
             {
                 var flowPinsHeight = heightPerFlowPin * flowInPinCount;
                 var dataPinsHeight = heightPerDataPin * dataInPinCount;
-                ViewModel.Height = baseHeight + flowPinsHeight + dataPinsHeight;
+                ViewModel.Height = baseHeight + flowPinsHeight + dataPinsHeight + 2;
             }
             else
             {
                 var flowPinsHeight = heightPerFlowPin * flowOutPinCount;
                 var dataPinsHeight = heightPerDataPin * dataOutPinCount;
-                ViewModel.Height = baseHeight + flowPinsHeight + dataPinsHeight;
+                ViewModel.Height = baseHeight + flowPinsHeight + dataPinsHeight + 2;
             }
 
             double heightOffset = (35 / ViewModel.Height);

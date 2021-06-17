@@ -123,6 +123,8 @@ namespace Simplic.Flow.Service
             unityContainer.RegisterType<INodeResolver, GenericNodeResolver<OnExecuteFlowEvent>>(nameof(OnExecuteFlowEvent));
 
             unityContainer.RegisterType<INodeResolver, GenericNodeResolver<ProcessStartNode>>(nameof(ProcessStartNode));
+
+            unityContainer.RegisterType<INodeResolver, GenericNodeResolver<IfConditionNode>>(nameof(IfConditionNode));
         }
         #endregion
 

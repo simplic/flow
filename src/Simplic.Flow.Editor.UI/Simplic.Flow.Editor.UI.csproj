@@ -61,6 +61,7 @@
     <Compile Include="FlowRadDiagram.cs" />
     <Compile Include="HierarchicalDataTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shapes\ConditionNodeShape.cs" />
     <Compile Include="Shapes\ActionNodeShape.cs" />
     <Compile Include="Shapes\BaseNodeShape.cs" />
     <Compile Include="Shapes\EventNodeShape.cs" />
@@ -70,6 +71,8 @@
     <Compile Include="ViewModel\Connector\FlowConnectorViewModel.cs" />
     <Compile Include="ViewModel\DataPinDefaultValueViewModel.cs" />
     <Compile Include="ViewModel\NodeConnectionViewModel.cs" />
+    <Compile Include="ViewModel\Node\ConditionNodeViewModel.cs" />
+    <Compile Include="ViewModel\Node\DynamicNodeViewModel.cs" />
     <Compile Include="ViewModel\Node\ActionNodeViewModel.cs" />
     <Compile Include="ViewModel\Node\EventNodeViewModel.cs" />
     <Compile Include="ViewModel\Node\NodeViewModel.cs" />

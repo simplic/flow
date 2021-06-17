@@ -106,6 +106,10 @@ namespace Simplic.Flow.Editor.UI
                 {
                     nodeViewModel = new EventNodeViewModel(nodeDefinition, node);
                 }
+                else if (node.NodeType == "ConditionNode")
+                {
+                    nodeViewModel = new ConditionNodeViewModel(nodeDefinition, node);
+                }
 
                 Nodes.Add(nodeViewModel);
             }
@@ -220,11 +224,20 @@ namespace Simplic.Flow.Editor.UI
 
                 var def = NodeDefinitions.FirstOrDefault(x => x.Name == baseNodeShape.Name);
 
+                var type = "";
+
+                if (def is ActionNodeDefinition)
+                    type = "ActionNode";
+                else if(def is EventNodeDefinition)
+                    type = "EventNode";
+                else if (def is ConditionNodeDefinition)
+                    type = "ConditionNode";
+
                 var nodeConfig = new Configuration.NodeConfiguration
                 {
                     Id = Guid.NewGuid(),
                     ClassName = def.Name,
-                    NodeType = def is ActionNodeDefinition ? "ActionNode" : "EventNode"
+                    NodeType = type
                 };
 
                 this.flowConfiguration.Nodes.Add(nodeConfig);
@@ -241,10 +254,32 @@ namespace Simplic.Flow.Editor.UI
                     nodeViewModel = new EventNodeViewModel(def, nodeConfig);
                     baseNodeShape.DataContext = nodeViewModel;
                 }
+                else if (def is ConditionNodeDefinition)
+                {
+                    nodeViewModel = new ConditionNodeViewModel(def, nodeConfig);
+                    baseNodeShape.DataContext = nodeViewModel;
+                }
+
+                nodeViewModel.FlowPins.CollectionChanged += (s, e) =>
+                {
+                    // Refresh connector
+                    baseNodeShape.CreateConnectors();
+                    baseNodeShape.Height = nodeViewModel.Height;
+                    baseNodeShape.Width = nodeViewModel.Width;
+                };
+
+                nodeViewModel.DataPins.CollectionChanged += (s, e) =>
+                {
+                    // Refresh connector
+                    baseNodeShape.CreateConnectors();
+                    baseNodeShape.Height = nodeViewModel.Height;
+                    baseNodeShape.Width = nodeViewModel.Width;
+                };
 
                 baseNodeShape.CreateConnectors();
                 baseNodeShape.Height = nodeViewModel.Height;
                 baseNodeShape.Width = nodeViewModel.Width;
+
                 return nodeViewModel;
             }
 

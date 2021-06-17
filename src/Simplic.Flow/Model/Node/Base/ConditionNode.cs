@@ -6,8 +6,6 @@
         
         public override bool Execute(IFlowRuntimeService runtime, DataPinScope scope)
         {
-            System.Console.WriteLine($"Execute: {GetType().Name}");
-
             var result = Compare(runtime, scope);
 
             if (result)

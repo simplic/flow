@@ -108,7 +108,6 @@
             <Setter.Value>
                 <ControlTemplate TargetType="extensions:SettingsPaneView">
                     <Border Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="{StaticResource SettingsPaneBorderBrush}">
-
                         <telerik:RadTabControl>
                             <telerik:RadTabItem Header="Defaultwerte">
                                 <Grid>
@@ -124,6 +123,20 @@
                                         </simplic:AutomaticSelectionGridView.Columns>
                                     </simplic:AutomaticSelectionGridView>
                                 </Grid>
+                            </telerik:RadTabItem>
+                            <telerik:RadTabItem Header="In-Pins">
+                                <GroupBox>
+                                    <GroupBox.Header>
+                                        <Button Content="+" Command="{Binding SelectedNode.AddDynamicInPin}" />
+                                    </GroupBox.Header>
+                                </GroupBox>
+                            </telerik:RadTabItem>
+                            <telerik:RadTabItem Header="Bedingungen">
+                                <GroupBox>
+                                    <GroupBox.Header>
+                                        <Button Content="+" Command="{Binding SelectedNode.AddDynamicFlowOutPin}" />
+                                    </GroupBox.Header>
+                                </GroupBox>
                             </telerik:RadTabItem>
                         </telerik:RadTabControl>
 
@@ -225,9 +238,59 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ConditionNodeStyle" TargetType="telerik:RadDiagramShape">
+        <Setter Property="Position" Value="{Binding Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Setter Property="Height" Value="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Setter Property="Width" Value="{Binding Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Setter Property="ToolTip" Value="{Binding TooltipText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Setter Property="Content" Value="{Binding}" />
+
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem Header="Defaultwerte" Command="{Binding OpenDefaultValueEditor}" CommandParameter="{Binding}" />
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Canvas Name="textCanvas" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+
+                        <Border Grid.Row="0" Margin="-3, -3, -3,0" Padding="0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#327C34" Offset="0"/>
+                                    <GradientStop Color="#1D5C1F"  Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Canvas Width="12" Margin="5,0,0,0" Height="14" Clip="F1 M 0,0L 14,0L 14,14L 0,14L 0,0">
+                                    <Path Width="12" Height="14" Stretch="Fill" Fill="#E5F995" Data="M 13 3 C 10.25 3 8 5.25 8 8 C 8 10.40625 9.726563 12.4375 12 12.90625 L 12 37.09375 C 9.726563 37.5625 8 39.59375 8 42 C 8 44.75 10.25 47 13 47 C 15.75 47 18 44.75 18 42 C 18 39.59375 16.273438 37.5625 14 37.09375 L 14 26.90625 C 16.304688 30.554688 20.375 33 25 33 L 32.09375 33 C 32.5625 35.273438 34.59375 37 37 37 C 39.75 37 42 34.75 42 32 C 42 29.25 39.75 27 37 27 C 34.59375 27 32.5625 28.726563 32.09375 31 L 25 31 C 18.914063 31 14 26.085938 14 20 L 14 12.90625 C 16.273438 12.4375 18 10.40625 18 8 C 18 5.25 15.75 3 13 3 Z M 13 5 C 14.667969 5 16 6.332031 16 8 C 16 9.667969 14.667969 11 13 11 C 11.332031 11 10 9.667969 10 8 C 10 6.332031 11.332031 5 13 5 Z M 37 29 C 38.667969 29 40 30.332031 40 32 C 40 33.667969 38.667969 35 37 35 C 35.332031 35 34 33.667969 34 32 C 34 30.332031 35.332031 29 37 29 Z M 13 39 C 14.667969 39 16 40.332031 16 42 C 16 43.667969 14.667969 45 13 45 C 11.332031 45 10 43.667969 10 42 C 10 40.332031 11.332031 39 13 39 Z"/>
+                                </Canvas>
+
+                                <TextBlock Foreground="White" Margin="5,5,0,0" Text="{Binding DisplayName}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <local:NodeStyleSelector x:Key="CustomShapeStyleSelector"
                     ActionNodeStyle="{StaticResource ActionNodeStyle}"
-                    EventNodeStyle="{StaticResource EventNodeStyle}" />
+                    EventNodeStyle="{StaticResource EventNodeStyle}"
+                    ConditionNodeStyle="{StaticResource ConditionNodeStyle}"/>
 
     <Style TargetType="telerik:RadDiagramConnection" x:Key="CustomLinkStyle">
         <Setter Property="Stroke" Value="{Binding StrokeColor}" />

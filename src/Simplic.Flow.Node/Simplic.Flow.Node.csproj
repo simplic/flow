@@ -63,6 +63,7 @@
     <Compile Include="ActionNode\Math\SubtractNode.cs" />
     <Compile Include="ActionNode\Process\ProcessStartNode.cs" />
     <Compile Include="ActionNode\Thread\ThreadSleepNode.cs" />
+    <Compile Include="Condition\IfConditionNode.cs" />
     <Compile Include="EventNode\Base\OnExecuteFlowEventArgs.cs" />
     <Compile Include="EventNode\Base\OnExecuteFlowEvent.cs" />
     <Compile Include="EventNode\IO\OnCheckDirectoryContentEventArgs.cs" />

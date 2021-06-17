@@ -58,7 +58,15 @@ namespace Simplic.Flow.Editor.UI
                             DataContext = item,
                         };
                     }
-                    else
+                    else if (item is Definition.ConditionNodeDefinition)
+                    {
+                        galleryItem.Shape = new ConditionNodeShape
+                        {
+                            Name = item.Name,
+                            DataContext = item,
+                        };
+                    }
+                    else if(item is Definition.EventNodeDefinition)
                     {
                         galleryItem.Shape = new EventNodeShape
                         {

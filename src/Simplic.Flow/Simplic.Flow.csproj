@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Attribute\ActionNodeDefinitionAttribute.cs" />
     <Compile Include="Attribute\DataPinDefinitionAttribute.cs" />
+    <Compile Include="Attribute\ConditionNodeDefinitionAttribute.cs" />
     <Compile Include="Attribute\EventNodeDefinitionAttribute.cs" />
     <Compile Include="Attribute\FlowPinDefinitionAttribute.cs" />
     <Compile Include="Attribute\NodeDefinitionAttribute.cs" />
